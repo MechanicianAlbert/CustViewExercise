@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,49 +13,67 @@ import android.view.View;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by A on 2017/6/28.
- */
 
+/**
+ * Created by Albert on 2017/6/28
+ */
 public class RockerView extends View {
 
+    public interface OnRockListener {
+        void onRock(float ratioX, float ratioY);
+        void onReset();
+    }
+
+
+    private final Set<OnRockListener> LISTENERS = new HashSet<>();
+    private Thread mNotifyThread = new Thread() {
+        @Override
+        public void run() {
+            try {
+                boolean lastIsOffset = true;
+                while (ViewCompat.isAttachedToWindow(RockerView.this)) {
+                    if (mIsTouching) {
+                        for (OnRockListener listener : LISTENERS) {
+                            listener.onRock(mBallRatioX, mBallRatioY);
+                        }
+                    } else {
+                        if (lastIsOffset) {
+                            for (OnRockListener listener : LISTENERS) {
+                                listener.onReset();
+                            }
+                        }
+                    }
+                    lastIsOffset = mIsTouching;
+                    sleep(20);
+                }
+                clearOnRockListener();
+                mNotifyThread = null;
+                interrupt();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
+    private Paint mPaint;
     private int mCircleColor = Color.parseColor("#FF777777");
     private int mLineColor = Color.parseColor("#FF000000");
     private int mBallColor = Color.parseColor("#FFFF0000");
-    private Paint mPaint;
 
-    private int mCircleCenterX;
-    private int mCircleCenterY;
-    private int mCircleRadius;
+    private float mCircleCenterX;
+    private float mCircleCenterY;
+    private float mCircleRadius;
     private float mBallRadius;
     private float mBallCenterX;
     private float mBallCenterY;
     private float mRangeRadius;
-    private int mHandleWidth;
+    private float mHandleWidth;
 
-    private float mTouchOffset;
-    private float mTouchOffsetX;
-    private float mTouchOffsetY;
-    private float mTouchRatio;
-    private float mBallOffsetX;
-    private float mBallOffsetY;
+    private boolean mIsTouching;
     private float mBallRatioX;
     private float mBallRatioY;
 
-    private boolean mOutput;
-    private Set<OnRockListener> mOnRockListenerSet = new HashSet<>();
-    private Runnable mOutputRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (!mOutput) {
-                return;
-            }
-            for (OnRockListener onRockListener : mOnRockListenerSet) {
-                onRockListener.onRock(mBallRatioX, mBallRatioY);
-            }
-            postDelayed(this, 500);
-        }
-    };
 
     public RockerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -79,45 +98,41 @@ public class RockerView extends View {
     }
 
     private void initDimensions() {
-        mCircleCenterX = getMeasuredWidth() / 2;
-        mCircleCenterY = getMeasuredHeight() / 2;
+        mCircleCenterX = getMeasuredWidth() / 2.0f;
+        mCircleCenterY = getMeasuredHeight() / 2.0f;
         mCircleRadius = Math.min(mCircleCenterX, mCircleCenterY) * 2 / 3;
         mBallCenterX = mCircleCenterX;
         mBallCenterY = mCircleCenterY;
         mBallRadius = mCircleRadius / 2;
         mHandleWidth = (int) (mBallRadius / 2);
-//        mRangeRadius = mCircleRadius - mBallRadius;
         mRangeRadius = mCircleRadius;
         mPaint.setStrokeWidth(mHandleWidth);
     }
 
     private void calcOffsetAndRatio(float x, float y) {
-        mTouchOffsetX = x - mCircleCenterX;
-        mTouchOffsetY = y - mCircleCenterY;
-        mTouchOffset = (float) Math.pow(Math.pow(mTouchOffsetX, 2) + Math.pow(mTouchOffsetY, 2), 0.5);
-        mTouchRatio = mTouchOffset / mRangeRadius;
-        mBallCenterX = mTouchOffsetX / Math.max(mTouchRatio, 1) + mCircleCenterX;
-        mBallCenterY = mTouchOffsetY / Math.max(mTouchRatio, 1) + mCircleCenterY;
-        mBallOffsetX = mBallCenterX - mCircleCenterX;
-        mBallOffsetY = mBallCenterY - mCircleCenterY;
-        mBallRatioX = mBallOffsetX / mRangeRadius;
-        mBallRatioY = mBallOffsetY / mRangeRadius;
+        float touchOffsetX = x - mCircleCenterX;
+        float touchOffsetY = y - mCircleCenterY;
+        float touchOffset = (float) Math.pow(Math.pow(touchOffsetX, 2) + Math.pow(touchOffsetY, 2), 0.5);
+        float touchRatio = touchOffset / mRangeRadius;
+        mBallCenterX = touchOffsetX / Math.max(touchRatio, 1) + mCircleCenterX;
+        mBallCenterY = touchOffsetY / Math.max(touchRatio, 1) + mCircleCenterY;
+        float ballOffsetX = mBallCenterX - mCircleCenterX;
+        float ballOffsetY = mBallCenterY - mCircleCenterY;
+        mBallRatioX = ballOffsetX / mRangeRadius;
+        mBallRatioY = ballOffsetY / mRangeRadius;
     }
 
-    private void startOutput() {
-        post(mOutputRunnable);
-    }
 
     public void addOnRockListener(OnRockListener onRockListener) {
-        mOnRockListenerSet.add(onRockListener);
+        LISTENERS.add(onRockListener);
     }
 
     public void removeOnRockListener(OnRockListener onRockListener) {
-        mOnRockListenerSet.remove(onRockListener);
+        LISTENERS.remove(onRockListener);
     }
 
     public void clearOnRockListener() {
-        mOnRockListenerSet.clear();
+        LISTENERS.clear();
     }
 
 
@@ -125,6 +140,12 @@ public class RockerView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         init();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mNotifyThread.start();
     }
 
     @Override
@@ -140,28 +161,13 @@ public class RockerView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x;
-        float y;
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            mOutput = false;
-            x = mCircleCenterX;
-            y = mCircleCenterY;
-            for (OnRockListener onRockListener : mOnRockListenerSet) {
-                onRockListener.onReset();
-            }
-        } else {
-            mOutput = true;
-            x = event.getX();
-            y = event.getY();
-        }
+        mIsTouching = event.getAction() != MotionEvent.ACTION_UP;
+        float x = mIsTouching ? event.getX() : mCircleCenterX;
+        float y = mIsTouching ? event.getY() : mCircleCenterY;
         calcOffsetAndRatio(x, y);
-        startOutput();
-        postInvalidate();
-        return super.onTouchEvent(event);
+        invalidate();
+        return true;
     }
 
-    public interface OnRockListener {
-        void onRock(float ratioX, float ratioY);
-        void onReset();
-    }
+
 }

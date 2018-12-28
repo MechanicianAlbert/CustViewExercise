@@ -16,7 +16,7 @@ import android.view.View;
 
 public class AimView extends View implements RockerView.OnRockListener {
 
-    private int mSpeed = 4;
+    private float mSpeed = 30f;
 
     private Path mPath = new Path();
     private RectF mRect = new RectF();
