@@ -1,4 +1,4 @@
-package com.example.peepdemo.rocker;
+package com.albertech.demo.rocker;
 
 import android.content.Context;
 import android.graphics.Canvas;

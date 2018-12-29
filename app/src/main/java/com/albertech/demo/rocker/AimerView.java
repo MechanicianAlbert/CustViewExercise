@@ -1,4 +1,4 @@
-package com.example.peepdemo.rocker;
+package com.albertech.demo.rocker;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,11 +10,12 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by A on 2017/6/29.
- */
 
-public class AimView extends View implements RockerView.OnRockListener {
+
+/**
+ * Created by Albert on 2017/6/29.
+ */
+public class AimerView extends View implements RockerView.OnRockListener {
 
     private float mSpeed = 30f;
 
@@ -29,7 +30,7 @@ public class AimView extends View implements RockerView.OnRockListener {
     private int mCenterX;
     private int mCenterY;
 
-    public AimView(Context context, @Nullable AttributeSet attrs) {
+    public AimerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
