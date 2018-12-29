@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.albertech.demo.rocker.RockActivity;
+import com.albertech.demo.scallopwave.ScallopActivity;
 
 
 
@@ -25,13 +26,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.btn1) {
             startActivity(RockActivity.class);
+        } else if (id == R.id.btn2) {
+            startActivity(ScallopActivity.class);
         }
     }
 
 
     private void init() {
         Button btn1 = findViewById(R.id.btn1);
+        Button btn2 = findViewById(R.id.btn2);
         btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
     }
 
     private void startActivity(Class<? extends AppCompatActivity> activityClass) {

@@ -18,6 +18,12 @@
             android:gravity="center"
             android:text="@string/btn1" />
 
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/btn2" />
     </LinearLayout>
 </ScrollView>
 
