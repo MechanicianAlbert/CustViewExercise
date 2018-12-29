@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    android:padding="20dp"
+    tools:context="com.albertech.demo.rocker.RockActivity">
+
+    <com.albertech.demo.rocker.AimerView
+        android:id="@+id/av"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/beauty" />
+
+    <com.albertech.demo.rocker.RockerView
+        android:id="@+id/rv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
+
