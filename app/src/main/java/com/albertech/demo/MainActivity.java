@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.albertech.demo.rocker.RockActivity;
 import com.albertech.demo.scallopwave.ScallopActivity;
-
+import com.albertech.demo.sirial.SirialActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(RockActivity.class);
         } else if (id == R.id.btn2) {
             startActivity(ScallopActivity.class);
+        } else if (id == R.id.btn3) {
+            startActivity(SirialActivity.class);
         }
     }
 
@@ -35,8 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         Button btn1 = findViewById(R.id.btn1);
         Button btn2 = findViewById(R.id.btn2);
+        Button btn3 = findViewById(R.id.btn3);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
     }
 
     private void startActivity(Class<? extends AppCompatActivity> activityClass) {

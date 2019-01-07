@@ -19,6 +19,7 @@
             android:name=".rocker.RockActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".scallopwave.ScallopActivity" />
+        <activity android:name=".sirial.SirialActivity" />
     </application>
 
 </manifest>

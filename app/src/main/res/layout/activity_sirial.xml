@@ -5,7 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     android:orientation="vertical"
-    tools:context="com.albertech.demo.scallopwave.ScallopActivity">
+    android:gravity="center"
+    tools:context="com.albertech.demo.sirial.SirialActivity">
 
+    <com.albertech.demo.sirial.SiriView
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 </LinearLayout>
 
