@@ -5,12 +5,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 
+
+/**
+ * A imitation of siri wave
+ *
+ * @Author Albert
+ * @Time 20181231
+ */
 public class SiriView extends View {
 
     private final Path PATH_TOP = new Path();
@@ -19,23 +28,23 @@ public class SiriView extends View {
         @Override
         public void run() {
             if (ViewCompat.isAttachedToWindow(SiriView.this)) {
-                mPhase+=2;
-//                mPhase %= Integer.MAX_VALUE / 6;
+                mPhase += 10;
+                mPhase %= Integer.MAX_VALUE / 6;
                 invalidate();
                 postDelayed(this, 20);
             }
         }
     };
     private final int[] COLORS = new int[]{
-            Color.argb(191, 191, 64, 64),//63
-            Color.argb(191, 48, 191, 151),//127
-            Color.argb(191, 0, 80, 167),//191
+            Color.argb(223, 159, 64, 64),//63
+            Color.argb(223, 48, 191, 151),//127
+            Color.argb(223, 0, 80, 167),//191
     };
 
     private final Runnable AMPLIFIER = new Runnable() {
         @Override
         public void run() {
-            mAmplitude = (float) Math.random() * mCenterHeight / 15;
+            mAmplitude = (float) Math.random() * mCenterHeight / 2;
             postDelayed(this, 200);
         }
     };
@@ -62,6 +71,7 @@ public class SiriView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -78,7 +88,7 @@ public class SiriView extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-//        removeCallbacks(PHASER);
+        removeCallbacks(PHASER);
     }
 
     @Override
@@ -102,16 +112,14 @@ public class SiriView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setFilterBitmap(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(Color.GREEN);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
     }
 
     private void initDimens() {
         mWidth = getMeasuredWidth();
         mCenterHeight = getMeasuredHeight() / 2;
-        mAmplitude = mCenterHeight / 15;
+        mAmplitude = mCenterHeight / 2;
     }
-
-
 
     private void initFeatures() {
         mFeatures = new SiriWaveFeature[COLORS.length];
@@ -119,19 +127,19 @@ public class SiriView extends View {
         for (int i = 0; i < COLORS.length; i++) {
             SiriWaveFeature feature = new SiriWaveFeature();
             feature.color = COLORS[i];
-            int length = (int) (Math.random() * 4 + 2);
-            length = 2;
+//            int length = (int) (Math.random() * 4 + 2);
+            int length = 2;
             SiriWaveFeature.SiriWaveDimens[] dimens = new SiriWaveFeature.SiriWaveDimens[length];
 //            for (int j = 0; j < length; j++) {
 //                dimens[j] = new SiriWaveFeature.SiriWaveDimens((float) Math.random() + 0.3f,
 //                        (float) Math.random() * 0.015f + 0.002f,
 //                        0,
-//                        (float) Math.random() * 30 - 20);
+//                        (float) Math.random() + 2f);
 //            }
             dimens[0] = new SiriWaveFeature.SiriWaveDimens((float) Math.random() + 0.3f,
                     (float) Math.random() * 0.015f + 0.004f,
                     0,
-                    (float) Math.random() * 20 - 10);
+                    (float) Math.random() + 2f);
             dimens[1] = new SiriWaveFeature.SiriWaveDimens((float) Math.random() + 0.3f,
                     dimens[0].angularVelocity,
                     0,
@@ -168,7 +176,7 @@ public class SiriView extends View {
         for (SiriWaveFeature.SiriWaveDimens feature : features) {
             subSin += calcStandardSin(x + mPhase * feature.phaseVelocity, mAmplitude * feature.amplitude, feature.angularVelocity, feature.originalPhase);
         }
-        return Math.max(subSin * calcMute(x), 1);
+        return Math.max(subSin * calcMute(x), 0);
     }
 
     private float calcStandardSin(float x, float amplitude, float angularVelocity, float originalPhase) {
@@ -176,18 +184,7 @@ public class SiriView extends View {
     }
 
     private float calcMute(float x) {
-        float silenceLength = mWidth / 4;
-        float y;
-        if (x < mWidth / 2) {
-            y = sigmod(x - silenceLength);
-        } else {
-            y = sigmod(mWidth - x - silenceLength);
-        }
-        return y - 0.1f;
+        return  (float) (Math.pow(Math.E, - Math.pow(x - mWidth / 2, 2) / (2 * Math.pow(mWidth / 8, 2))) / 6);
     }
 
-    private float sigmod(float x) {
-        return (1 / (1 + (float) Math.pow(Math.E, -x / mWidth * 7)));
-    }
-    ;
 }
