@@ -5,12 +5,21 @@
     <color name="colorAccent">#FF4081</color>
 
 
-    <color name="colorTrans">#00000000</color>
+    <color name="colorTrans">#00FFFFFF</color>
     <color name="colorBlack">#FF000000</color>
     <color name="colorWhite">#FFFFFFFF</color>
 
 
+    <color name="colorBlue">#BB4687FF</color>
+    <color name="colorPurple">#BB9661FF</color>
+    <color name="colorCyan">#BBD4DCFF</color>
+
+
     <color name="colorSapphire">#FF315CFF</color>
     <color name="colorAmethystine">#FF9C41F4</color>
+
+
+
+
 
 </resources>

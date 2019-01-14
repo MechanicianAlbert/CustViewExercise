@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CustomViewExercise</string>
     <string name="str_btn_rocker">Rocker_Aimer</string>
+    <string name="str_btn_aqua">AquaWave</string>
     <string name="str_btn_liquid">LiquidWave</string>
     <string name="str_btn_scallop">ScallopWave</string>
     <string name="str_btn_siri">SiriWave</string>

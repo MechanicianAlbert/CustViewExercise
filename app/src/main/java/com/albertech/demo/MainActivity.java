@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.albertech.demo.aqua.AquaWaveActivity;
 import com.albertech.demo.liquid.LiquidWaveActivity;
 import com.albertech.demo.rocker.RockActivity;
 import com.albertech.demo.scallop.ScallopWaveActivity;
 import com.albertech.demo.siri.SiriWaveActivity;
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.btn_rocker) {
             startActivity(RockActivity.class);
+        } else if (id == R.id.btn_aqua) {
+            startActivity(AquaWaveActivity.class);
         } else if (id == R.id.btn_liquid) {
             startActivity(LiquidWaveActivity.class);
         } else if (id == R.id.btn_scallop) {
@@ -39,13 +43,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         Button btn1 = findViewById(R.id.btn_rocker);
-        Button btn2 = findViewById(R.id.btn_liquid);
-        Button btn3 = findViewById(R.id.btn_scallop);
-        Button btn4 = findViewById(R.id.btn_siri);
+        Button btn2 = findViewById(R.id.btn_aqua);
+        Button btn3 = findViewById(R.id.btn_liquid);
+        Button btn4 = findViewById(R.id.btn_scallop);
+        Button btn5 = findViewById(R.id.btn_siri);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
         btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
     }
 
     private void startActivity(Class<? extends AppCompatActivity> activityClass) {

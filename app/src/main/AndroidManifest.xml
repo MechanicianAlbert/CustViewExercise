@@ -19,6 +19,7 @@
         <activity
             android:name=".rocker.RockActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".aqua.AquaWaveActivity" />
         <activity android:name=".liquid.LiquidWaveActivity" />
         <activity android:name=".scallop.ScallopWaveActivity" />
         <activity android:name=".siri.SiriWaveActivity" />
