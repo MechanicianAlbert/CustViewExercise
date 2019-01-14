@@ -1,4 +1,4 @@
-package com.albertech.demo.sirial;
+package com.albertech.demo.siri;
 
 public class SiriWaveFeature {
 

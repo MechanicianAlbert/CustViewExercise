@@ -4,6 +4,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
+        android:name="MyApplication"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
@@ -18,8 +19,9 @@
         <activity
             android:name=".rocker.RockActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".scallopwave.ScallopActivity" />
-        <activity android:name=".sirial.SirialActivity" />
+        <activity android:name=".liquid.LiquidWaveActivity" />
+        <activity android:name=".scallop.ScallopWaveActivity" />
+        <activity android:name=".siri.SiriWaveActivity" />
     </application>
 
 </manifest>

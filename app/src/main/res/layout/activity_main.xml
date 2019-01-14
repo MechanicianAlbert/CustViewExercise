@@ -12,25 +12,32 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btn_rocker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/btn1" />
+            android:text="@string/str_btn_rocker" />
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btn_liquid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/btn2" />
+            android:text="@string/str_btn_liquid" />
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btn_scallop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/btn3" />
+            android:text="@string/str_btn_scallop" />
+
+        <Button
+            android:id="@+id/btn_siri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_btn_siri" />
     </LinearLayout>
 </ScrollView>
 

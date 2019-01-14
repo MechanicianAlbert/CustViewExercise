@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CustomViewExercise</string>
-    <string name="btn1">Rocker_Aimer</string>
-    <string name="btn2">Scallop</string>
-    <string name="btn3">Sirial</string>
+    <string name="str_btn_rocker">Rocker_Aimer</string>
+    <string name="str_btn_liquid">LiquidWave</string>
+    <string name="str_btn_scallop">ScallopWave</string>
+    <string name="str_btn_siri">SiriWave</string>
 </resources>

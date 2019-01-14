@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.albertech.demo.sirial.SirialActivity">
+    tools:context="com.albertech.demo.scallop.ScallopWaveActivity">
 
-    <com.albertech.demo.sirial.SiriView
+    <com.albertech.demo.liquid.LiquidWaveView
+        android:id="@+id/lwv"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="50dp" />
 </LinearLayout>
 

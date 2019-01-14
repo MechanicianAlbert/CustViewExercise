@@ -1,16 +1,13 @@
-package com.albertech.demo.scallopwave;
+package com.albertech.demo.scallop;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 import com.albertech.demo.R;
-import com.albertech.demo.rocker.RockActivity;
 
 
-public class ScallopActivity extends AppCompatActivity {
+
+public class ScallopWaveActivity extends AppCompatActivity {
 
 
     @Override
@@ -21,7 +18,8 @@ public class ScallopActivity extends AppCompatActivity {
     }
 
     private void init() {
-
+        ScallopWaveView mSwv = findViewById(R.id.swv);
+        mSwv.input(100);
     }
 
 

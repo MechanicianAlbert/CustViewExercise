@@ -1,4 +1,4 @@
-package com.albertech.demo.sirial;
+package com.albertech.demo.siri;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -20,14 +20,14 @@ import android.view.View;
  * @Author Albert
  * @Time 20181231
  */
-public class SiriView extends View {
+public class SiriWaveView extends View {
 
     private final Path PATH_TOP = new Path();
     private final Path PATH_BOTTOM = new Path();
     private final Runnable PHASER = new Runnable() {
         @Override
         public void run() {
-            if (ViewCompat.isAttachedToWindow(SiriView.this)) {
+            if (ViewCompat.isAttachedToWindow(SiriWaveView.this)) {
                 mPhase += 10;
                 mPhase %= Integer.MAX_VALUE / 6;
                 invalidate();
@@ -59,15 +59,15 @@ public class SiriView extends View {
     private float mPhase;
 
 
-    public SiriView(Context context) {
+    public SiriWaveView(Context context) {
         super(context);
     }
 
-    public SiriView(Context context, @Nullable AttributeSet attrs) {
+    public SiriWaveView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SiriView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SiriWaveView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
