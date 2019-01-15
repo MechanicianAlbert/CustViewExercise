@@ -1,8 +1,10 @@
-package com.albertech.demo;
+package com.albertech.demo.util;
 
 import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
+
+import com.albertech.demo.MyApplication;
 
 
 public class ResUtil {

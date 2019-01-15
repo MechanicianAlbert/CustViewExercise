@@ -2,7 +2,7 @@ package com.albertech.demo.aqua;
 
 
 import com.albertech.demo.R;
-import com.albertech.demo.ResUtil;
+import com.albertech.demo.util.ResUtil;
 
 
 

@@ -14,6 +14,9 @@
     <color name="colorPurple">#BB9661FF</color>
     <color name="colorCyan">#BBD4DCFF</color>
 
+    <color name="colorPinkLight">#BBF0C8E6</color>
+    <color name="colorPinkDark">#BBFF3399</color>
+
 
     <color name="colorSapphire">#FF315CFF</color>
     <color name="colorAmethystine">#FF9C41F4</color>

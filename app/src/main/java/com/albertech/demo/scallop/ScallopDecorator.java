@@ -1,7 +1,7 @@
 package com.albertech.demo.scallop;
 
 import com.albertech.demo.R;
-import com.albertech.demo.ResUtil;
+import com.albertech.demo.util.ResUtil;
 
 
 /**

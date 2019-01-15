@@ -1,14 +1,13 @@
 package com.albertech.demo.audio;
 
 import android.media.MediaRecorder;
-import android.os.Environment;
-import android.util.Log;
 
 import com.albertech.demo.util.FileUtil;
 
-import java.io.File;
 
-
+/**
+ * Created by Albert on 2019/1/15.
+ */
 class AudioCapturer {
 
     private static class RecordInterceptByPermissionDeniedException extends Exception {
@@ -37,7 +36,6 @@ class AudioCapturer {
         } catch (Exception e) {
             volume = 0;
         }
-        Log.e("AAA", String.format("Volume: %.2f", volume));
         return volume;
     }
 
