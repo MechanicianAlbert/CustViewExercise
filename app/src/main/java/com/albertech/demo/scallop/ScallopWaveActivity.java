@@ -1,26 +1,24 @@
 package com.albertech.demo.scallop;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.albertech.demo.R;
+import com.albertech.demo.audio.AudioCaptureActivity;
 
 
+public class ScallopWaveActivity extends AudioCaptureActivity {
 
-public class ScallopWaveActivity extends AppCompatActivity {
+    private ScallopWaveView mSwv;
+
+
+    protected void init() {
+        setContentView(R.layout.activity_scallop);
+        mSwv = findViewById(R.id.swv);
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scallop);
-        init();
+    public void onVolumeChange(float volume) {
+        if (mSwv != null) {
+            mSwv.input(volume);
+        }
     }
-
-    private void init() {
-        ScallopWaveView mSwv = findViewById(R.id.swv);
-        mSwv.input(100);
-    }
-
-
 }

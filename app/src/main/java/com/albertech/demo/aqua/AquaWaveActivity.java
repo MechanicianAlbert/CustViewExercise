@@ -1,26 +1,23 @@
 package com.albertech.demo.aqua;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.albertech.demo.R;
+import com.albertech.demo.audio.AudioCaptureActivity;
 
 
-public class AquaWaveActivity extends AppCompatActivity {
+public class AquaWaveActivity extends AudioCaptureActivity {
+
+    private AquaWaveView mAwv;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(R.layout.activity_aqua);
-        init();
-    }
-
-    private void init() {
-        AquaWaveView mAwv = findViewById(R.id.awv);
-        mAwv.input(16);
-
+        mAwv = findViewById(R.id.awv);
     }
 
 
+    @Override
+    public void onVolumeChange(float volume) {
+        mAwv.input(volume / 16);
+    }
 }

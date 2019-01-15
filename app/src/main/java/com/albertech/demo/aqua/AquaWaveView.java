@@ -7,10 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-
 
 
 /**
@@ -21,7 +21,6 @@ public class AquaWaveView extends View implements ViewTreeObserver.OnGlobalLayou
     // config params
     private InputSourceFeature[] mInputSourceFeatures;
     private int mPeakCount;
-    private int mInputIgnore;
     private boolean mIsPhaseIncreaseAuto;
     private float mPhaseSpeed;
 
@@ -40,13 +39,15 @@ public class AquaWaveView extends View implements ViewTreeObserver.OnGlobalLayou
     private Runnable mPeakHeightUpdater = new Runnable() {
         @Override
         public void run() {
-            updatePeakHeightTable(mInputRatio);
-            if (mIsPhaseIncreaseAuto) {
-                mPhase += (mPhaseSpeed * Math.PI * 2);
-                mPhase %= (Math.PI * 2);
+            if (ViewCompat.isAttachedToWindow(AquaWaveView.this)) {
+                updatePeakHeightTable(mInputRatio);
+                if (mIsPhaseIncreaseAuto) {
+                    mPhase += (mPhaseSpeed * Math.PI * 2);
+                    mPhase %= (Math.PI * 2);
+                }
+                invalidate();
+                postDelayed(this, 50);
             }
-            invalidate();
-            postDelayed(this, 200);
         }
     };
 
@@ -84,7 +85,6 @@ public class AquaWaveView extends View implements ViewTreeObserver.OnGlobalLayou
         } else {
             mInputSourceFeatures = decorator.getInputSourceFeatures();
             mPeakCount = decorator.getPeakCount();
-            mInputIgnore = decorator.getInputIgnore();
             mIsPhaseIncreaseAuto = decorator.isPhaseIncreaseAuto();
             mPhaseSpeed = decorator.getPhaseIncreaseSpeed();
             mPeakHeightTable = new int[mInputSourceFeatures.length][mPeakCount];
@@ -132,7 +132,7 @@ public class AquaWaveView extends View implements ViewTreeObserver.OnGlobalLayou
                     mPath.moveTo(x, mCenterVerticalHeight);
                 } else if (x == mWidth) {
                     mPath.lineTo(x, mCenterVerticalHeight);
-                }else {
+                } else {
                     mPath.lineTo(x + (i % 2) * mHalfCycle / 2, x + (i % 2) * mHalfCycle / 2 < mWidth - 1 ? y : mCenterVerticalHeight);
                 }
             }
@@ -164,11 +164,19 @@ public class AquaWaveView extends View implements ViewTreeObserver.OnGlobalLayou
         updateLayoutParams();
     }
 
-    public void input(int volume) {
-        mInputCount = (mInputCount + 1) % mInputIgnore;
-        if (mInputCount == 0) {
-            mInputRatio = volume / 25f;
-            post(mPeakHeightUpdater);
-        }
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        post(mPeakHeightUpdater);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeCallbacks(null);
+    }
+
+    public void input(float volume) {
+        mInputRatio = volume / 25f;
     }
 }

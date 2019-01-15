@@ -9,6 +9,7 @@
     tools:context="com.albertech.demo.siri.SiriWaveActivity">
 
     <com.albertech.demo.siri.SiriWaveView
+        android:id="@+id/swv"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 </LinearLayout>

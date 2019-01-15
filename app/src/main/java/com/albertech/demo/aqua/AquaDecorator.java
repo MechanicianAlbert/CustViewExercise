@@ -29,11 +29,6 @@ public class AquaDecorator implements IWaveDecorator {
     }
 
     @Override
-    public int getInputIgnore() {
-        return 1;
-    }
-
-    @Override
     public boolean isPhaseIncreaseAuto() {
         return true;
     }

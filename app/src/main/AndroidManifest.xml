@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.albertech.demo">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
     <application
         android:icon="@drawable/ic_launcher"
         android:name="MyApplication"
@@ -9,6 +12,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name=".audio.AudioCaptureService" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

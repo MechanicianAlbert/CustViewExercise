@@ -1,24 +1,25 @@
 package com.albertech.demo.siri;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.albertech.demo.R;
+import com.albertech.demo.audio.AudioCaptureActivity;
 
 
-public class SiriWaveActivity extends AppCompatActivity {
+
+public class SiriWaveActivity extends AudioCaptureActivity {
+
+
+    private SiriWaveView mSwv;
+
+    protected void init() {
+        setContentView(R.layout.activity_siri);
+        mSwv = findViewById(R.id.swv);
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_siri);
-        init();
+    public void onVolumeChange(float volume) {
+        if (mSwv != null) {
+            mSwv.input(volume);
+        }
     }
-
-    private void init() {
-
-    }
-
-
 }

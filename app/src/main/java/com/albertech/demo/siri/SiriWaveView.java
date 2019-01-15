@@ -44,7 +44,7 @@ public class SiriWaveView extends View {
     private final Runnable AMPLIFIER = new Runnable() {
         @Override
         public void run() {
-            mAmplitude = (float) Math.random() * mCenterHeight / 2;
+//            mAmplitude = (float) Math.random() * mCenterHeight / 2;
             postDelayed(this, 200);
         }
     };
@@ -185,6 +185,10 @@ public class SiriWaveView extends View {
 
     private float calcMute(float x) {
         return  (float) (Math.pow(Math.E, - Math.pow(x - mWidth / 2, 2) / (2 * Math.pow(mWidth / 8, 2))) / 6);
+    }
+
+    public void input(float volume) {
+        mAmplitude = volume / 256 * mCenterHeight / 2;
     }
 
 }

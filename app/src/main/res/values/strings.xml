@@ -5,4 +5,6 @@
     <string name="str_btn_liquid">LiquidWave</string>
     <string name="str_btn_scallop">ScallopWave</string>
     <string name="str_btn_siri">SiriWave</string>
+
+    <string name="str_permission">Voice capture failed, please check permission.</string>
 </resources>

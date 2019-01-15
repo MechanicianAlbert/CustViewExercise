@@ -181,7 +181,7 @@ public class ScallopWaveView extends View implements ViewTreeObserver.OnGlobalLa
         onAttachedToWindowExtra();
     }
 
-    public void input(int volume) {
+    public void input(float volume) {
         mPeakHeight = volume;
     }
 }

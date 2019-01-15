@@ -163,8 +163,8 @@ public class LiquidWaveView extends View implements ViewTreeObserver.OnGlobalLay
         mPhaseShifting = false;
     }
 
-    public void input(int volume) {
-        float nextHeight = volume / 20f * mCenterVerticalHeight;
-        mPeakHeight = Math.min(Math.max(15, nextHeight), 30);
+    public void input(float volume) {
+        float nextHeight = volume / 512f * mCenterVerticalHeight;
+        mPeakHeight = Math.min(Math.max(15, nextHeight), mCenterVerticalHeight);
     }
 }

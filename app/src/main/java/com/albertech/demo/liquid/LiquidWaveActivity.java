@@ -1,27 +1,26 @@
 package com.albertech.demo.liquid;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.albertech.demo.R;
-import com.albertech.demo.scallop.ScallopWaveView;
+import com.albertech.demo.audio.AudioCaptureActivity;
 
 
-public class LiquidWaveActivity extends AppCompatActivity {
+public class LiquidWaveActivity extends AudioCaptureActivity {
 
+
+    private LiquidWaveView mLwv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(R.layout.activity_liquid);
-        init();
-    }
-
-    private void init() {
-        LiquidWaveView mLwv = findViewById(R.id.lwv);
-        mLwv.input(100);
+        mLwv = findViewById(R.id.lwv);
         mLwv.startPhaseShifting();
     }
 
 
+    @Override
+    public void onVolumeChange(float volume) {
+        if (mLwv != null) {
+            mLwv.input(volume);
+        }
+    }
 }

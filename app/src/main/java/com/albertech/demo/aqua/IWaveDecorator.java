@@ -11,8 +11,6 @@ public interface IWaveDecorator {
 
     int getPeakCount();
 
-    int getInputIgnore();
-
     boolean isPhaseIncreaseAuto();
 
     float getPhaseIncreaseSpeed();
