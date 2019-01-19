@@ -28,7 +28,7 @@ public class SiriWaveView extends View {
         @Override
         public void run() {
             if (ViewCompat.isAttachedToWindow(SiriWaveView.this)) {
-                mPhase += 10;
+                mPhase += mPhaseSpeed;
                 mPhase %= Integer.MAX_VALUE / 6;
                 invalidate();
                 postDelayed(this, 20);
@@ -41,14 +41,6 @@ public class SiriWaveView extends View {
             Color.argb(223, 0, 80, 167),//191
     };
 
-    private final Runnable AMPLIFIER = new Runnable() {
-        @Override
-        public void run() {
-//            mAmplitude = (float) Math.random() * mCenterHeight / 2;
-            postDelayed(this, 200);
-        }
-    };
-
 
     private Paint mPaint;
     private float mWidth;
@@ -57,6 +49,7 @@ public class SiriWaveView extends View {
     private SiriWaveFeature[] mFeatures;
     private float mAmplitude;
     private float mPhase;
+    private float mPhaseSpeed;
 
 
     public SiriWaveView(Context context) {
@@ -82,7 +75,6 @@ public class SiriWaveView extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         post(PHASER);
-//        post(AMPLIFIER);
     }
 
     @Override
@@ -99,6 +91,7 @@ public class SiriWaveView extends View {
         mPaint.setColor(Color.WHITE);
         canvas.drawRect(0, mCenterHeight - 0.2f, mWidth, mCenterHeight + 0.2f, mPaint);
     }
+
 
     private void init() {
         initPaint();
@@ -188,7 +181,9 @@ public class SiriWaveView extends View {
     }
 
     public void input(float volume) {
-        mAmplitude = volume / 256 * mCenterHeight / 2;
+        float ratio = volume / 256;
+        mAmplitude = ratio * mCenterHeight / 2;
+        mPhaseSpeed = Math.min((float) Math.pow(ratio, 0.3), 1) * 15;
     }
 
 }
